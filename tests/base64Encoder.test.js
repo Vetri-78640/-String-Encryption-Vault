@@ -1,4 +1,9 @@
-import { encode, decode, isBase64, analyze } from '../src/base64Encoder.js';
+import {
+  encode,
+  decode,
+  isBase64,
+  analyze,
+} from '../src/base64Encoder.js';
 
 describe('Base64 Encoder', () => {
   describe('encode', () => {

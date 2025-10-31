@@ -116,12 +116,62 @@ export function decrypt(ciphertext, key) {
 }
 
 /**
+ * Calculates a score for text based on English letter frequency
+ *
+ * @param {string} text - The text to analyze
+ * @returns {number} A score based on letter frequency
+ * @private
+ */
+function calculateTextScore(text) {
+  const englishFrequency = {
+    E: 11,
+    T: 9,
+    A: 8,
+    O: 7.5,
+    I: 7,
+    N: 6.7,
+    S: 6.3,
+    H: 6.1,
+    R: 6,
+    D: 4.3,
+    L: 4,
+    C: 2.8,
+    U: 2.8,
+    M: 2.4,
+    W: 2.4,
+    F: 2.2,
+    G: 2,
+    Y: 2,
+    P: 1.9,
+    B: 1.5,
+    V: 0.98,
+    K: 0.77,
+    J: 0.15,
+    X: 0.15,
+    Q: 0.1,
+    Z: 0.07,
+  };
+
+  let score = 0;
+  const textUpper = text.toUpperCase();
+
+  textUpper.split('').forEach((char) => {
+    if (/[A-Z]/.test(char)) {
+      score += englishFrequency[char] || 0;
+    }
+  });
+
+  return score;
+}
+
+/**
  * Performs a brute force attack by trying common English words as keys
  * Returns potential plaintexts with their scores
  *
  * @param {string} ciphertext - The encrypted text
  * @param {Array<string>} [commonWords] - Optional list of common words to try
- * @returns {Array<{key: string, plaintext: string, score: number}>} Potential decryptions sorted by score
+ * @returns {Array<{key: string, plaintext: string, score: number}>}
+ *   Potential decryptions sorted by score
  *
  * @example
  * bruteForce('RIJVSUYVJN', ['KEY', 'SECRET', 'PASSWORD'])
@@ -134,16 +184,33 @@ export function bruteForce(ciphertext, commonWords = []) {
 
   // Default common English words to try
   const defaultWords = [
-    'PASSWORD', 'SECRET', 'KEY', 'CIPHER', 'ENCRYPT', 'SECURITY',
-    'COMPUTER', 'ALGORITHM', 'CRYPTOGRAPHY', 'HASH', 'SYMMETRIC',
-    'ASYMMETRIC', 'MESSAGE', 'HELLO', 'WORLD', 'JAVASCRIPT',
-    'HACKTOBERFEST', 'CONTRIBUTE', 'GITHUB', 'VAULT', 'CRYPTO'
+    'PASSWORD',
+    'SECRET',
+    'KEY',
+    'CIPHER',
+    'ENCRYPT',
+    'SECURITY',
+    'COMPUTER',
+    'ALGORITHM',
+    'CRYPTOGRAPHY',
+    'HASH',
+    'SYMMETRIC',
+    'ASYMMETRIC',
+    'MESSAGE',
+    'HELLO',
+    'WORLD',
+    'JAVASCRIPT',
+    'HACKTOBERFEST',
+    'CONTRIBUTE',
+    'GITHUB',
+    'VAULT',
+    'CRYPTO',
   ];
 
   const wordsToTry = commonWords.length > 0 ? commonWords : defaultWords;
   const results = [];
 
-  for (const word of wordsToTry) {
+  wordsToTry.forEach((word) => {
     try {
       const plaintext = decrypt(ciphertext, word);
       const score = calculateTextScore(plaintext);
@@ -151,12 +218,12 @@ export function bruteForce(ciphertext, commonWords = []) {
       results.push({
         key: word,
         plaintext,
-        score
+        score,
       });
     } catch (e) {
       // Ignore words that cause errors
     }
-  }
+  });
 
   // Sort by score (highest first)
   results.sort((a, b) => b.score - a.score);
@@ -165,30 +232,23 @@ export function bruteForce(ciphertext, commonWords = []) {
 }
 
 /**
- * Calculates a simple English text score based on common letter frequencies
- * Higher score indicates more likely to be English text
+ * Gets all divisors of a number
  *
- * @param {string} text - The text to analyze
- * @returns {number} A score based on letter frequency
+ * @param {number} num - The number to analyze
+ * @returns {Array<number>} Array of divisors
  * @private
  */
-function calculateTextScore(text) {
-  const englishFrequency = {
-    E: 11, T: 9, A: 8, O: 7.5, I: 7, N: 6.7, S: 6.3, H: 6.1, R: 6,
-    D: 4.3, L: 4, C: 2.8, U: 2.8, M: 2.4, W: 2.4, F: 2.2, G: 2,
-    Y: 2, P: 1.9, B: 1.5, V: 0.98, K: 0.77, J: 0.15, X: 0.15, Q: 0.1, Z: 0.07
-  };
-
-  let score = 0;
-  const textUpper = text.toUpperCase();
-
-  for (const char of textUpper) {
-    if (/[A-Z]/.test(char)) {
-      score += englishFrequency[char] || 0;
+function getDivisors(num) {
+  const divisors = [];
+  for (let i = 1; i <= Math.sqrt(num); i += 1) {
+    if (num % i === 0) {
+      divisors.push(i);
+      if (i !== num / i) {
+        divisors.push(num / i);
+      }
     }
   }
-
-  return score;
+  return divisors.sort((a, b) => a - b);
 }
 
 /**
@@ -223,22 +283,22 @@ export function analyze(ciphertext, sequenceLength = 3) {
 
   // Calculate distances between repetitions
   const distances = [];
-  for (const [, positions] of sequences) {
+  sequences.forEach((positions) => {
     if (positions.length > 1) {
       for (let i = 0; i < positions.length - 1; i += 1) {
         distances.push(positions[i + 1] - positions[i]);
       }
     }
-  }
+  });
 
   // Find common factors (likely key lengths)
   const factors = new Map();
-  for (const distance of distances) {
+  distances.forEach((distance) => {
     const divisors = getDivisors(distance);
-    for (const divisor of divisors) {
+    divisors.forEach((divisor) => {
       factors.set(divisor, (factors.get(divisor) || 0) + 1);
-    }
-  }
+    });
+  });
 
   // Sort by frequency
   const keyLengths = Array.from(factors.entries())
@@ -250,28 +310,8 @@ export function analyze(ciphertext, sequenceLength = 3) {
     keyLengths,
     distances: distances.slice(0, 10),
     likelyKeyLength: keyLengths[0] || null,
-    repetitionCount: distances.length
+    repetitionCount: distances.length,
   };
-}
-
-/**
- * Gets all divisors of a number
- *
- * @param {number} num - The number to analyze
- * @returns {Array<number>} Array of divisors
- * @private
- */
-function getDivisors(num) {
-  const divisors = [];
-  for (let i = 1; i <= Math.sqrt(num); i += 1) {
-    if (num % i === 0) {
-      divisors.push(i);
-      if (i !== num / i) {
-        divisors.push(num / i);
-      }
-    }
-  }
-  return divisors.sort((a, b) => a - b);
 }
 
 /**

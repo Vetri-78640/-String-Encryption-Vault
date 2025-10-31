@@ -117,4 +117,11 @@ function analyze(text) {
   };
 }
 
-export { encode, decode, isBase64, analyze, Base64Error, InvalidBase64Error };
+export {
+  encode,
+  decode,
+  isBase64,
+  analyze,
+  Base64Error,
+  InvalidBase64Error,
+};

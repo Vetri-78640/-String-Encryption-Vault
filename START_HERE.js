@@ -70,22 +70,22 @@ Hacktoberfest contributions! Here's what has been created:
 ┌─ QUICK START ──────────────────────────────────────────────────────────────┐
 │                                                                            │
 │ 1. Install dependencies:                                                  │
-│    \$ npm install                                                          │
+│    $ npm install                                                          │
 │                                                                            │
 │ 2. Run tests to verify setup:                                             │
-│    \$ npm test                                                             │
+│    $ npm test                                                             │
 │                                                                            │
 │ 3. Try the CLI:                                                            │
-│    \$ npm run cli -- caesar --mode encrypt --text HELLO --shift 3        │
+│    $ npm run cli -- caesar --mode encrypt --text HELLO --shift 3        │
 │                                                                            │
 │ 4. View usage examples:                                                    │
-│    \$ npm run example                                                      │
+│    $ npm run example                                                      │
 │                                                                            │
 │ 5. Check code quality:                                                     │
-│    \$ npm run lint                                                         │
+│    $ npm run lint                                                         │
 │                                                                            │
 │ 6. Format your code:                                                       │
-│    \$ npm run format                                                       │
+│    $ npm run format                                                       │
 │                                                                            │
 └────────────────────────────────────────────────────────────────────────────┘
 
@@ -108,16 +108,16 @@ Hacktoberfest contributions! Here's what has been created:
 │ 1. Fork the repository on GitHub                                          │
 │                                                                            │
 │ 2. Clone your fork:                                                        │
-│    \$ git clone https://github.com/YOUR-USERNAME/String-Encryption-...   │
+│    $ git clone https://github.com/YOUR-USERNAME/String-Encryption-...   │
 │                                                                            │
 │ 3. Create a feature branch:                                                │
-│    \$ git checkout -b feature/vigenere-cipher                            │
-│    \$ git checkout -b feature/password-hasher                            │
-│    \$ git checkout -b feature/morse-code                                 │
+│    $ git checkout -b feature/vigenere-cipher                            │
+│    $ git checkout -b feature/password-hasher                            │
+│    $ git checkout -b feature/morse-code                                 │
 │    ... (one feature per branch)                                            │
 │                                                                            │
 │ 4. Install dependencies:                                                   │
-│    \$ npm install                                                          │
+│    $ npm install                                                          │
 │                                                                            │
 │ 5. Implement your feature:                                                 │
 │    • Edit the stub file in src/                                           │
@@ -131,15 +131,15 @@ Hacktoberfest contributions! Here's what has been created:
 │    • Test edge cases and errors                                           │
 │                                                                            │
 │ 7. Quality checks:                                                         │
-│    \$ npm run lint:fix                                                     │
-│    \$ npm run format                                                       │
-│    \$ npm test                                                             │
+│    $ npm run lint:fix                                                     │
+│    $ npm run format                                                       │
+│    $ npm test                                                             │
 │                                                                            │
 │ 8. Commit with clear message:                                              │
-│    \$ git commit -m "feat: implement vigenere cipher"                     │
+│    $ git commit -m "feat: implement vigenere cipher"                     │
 │                                                                            │
 │ 9. Push to your fork:                                                      │
-│    \$ git push origin feature/vigenere-cipher                            │
+│    $ git push origin feature/vigenere-cipher                            │
 │                                                                            │
 │ 10. Create Pull Request on GitHub                                         │
 │     • Include clear description                                           │
@@ -282,10 +282,10 @@ Hacktoberfest contributions! Here's what has been created:
 └────────────────────────────────────────────────────────────────────────────┘
 
 EVERYTHING IS READY! 
-   Your project is fully set up and ready for Hacktoberfest contributions!
-   
+Your project is fully set up and ready for Hacktoberfest contributions!
+
 GOOD LUCK with your contributions!
-   Make this an amazing educational resource for everyone!
+Make this an amazing educational resource for everyone!
 `;
 
 console.log(summary);

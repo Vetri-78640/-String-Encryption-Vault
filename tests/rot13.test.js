@@ -1,4 +1,9 @@
-import { encode, decode, isRot13Symmetric, analyze } from '../src/rot13.js';
+import {
+  encode,
+  decode,
+  isRot13Symmetric,
+  analyze,
+} from '../src/rot13.js';
 
 describe('ROT13', () => {
   describe('encode', () => {
