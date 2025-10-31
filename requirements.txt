@@ -1,0 +1,10 @@
+# Core dependencies
+qrcode>=7.4.2
+pyzbar>=0.1.9
+Pillow>=9.5.0
+
+# For password hashing
+bcrypt>=4.0.1
+
+# CLI
+click>=8.1.3

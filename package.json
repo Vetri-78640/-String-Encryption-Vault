@@ -1,0 +1,51 @@
+{
+  "name": "string-encryption-vault",
+  "version": "1.0.0",
+  "description": "A comprehensive collection of encryption, decryption, and encoding utilities for educational and practical use.",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --collectCoverageFrom='src/**/*.js'",
+    "lint": "eslint src/ tests/ cli/",
+    "lint:fix": "eslint src/ tests/ cli/ --fix",
+    "format": "prettier --write 'src/**/*.js' 'tests/**/*.js' 'cli/**/*.js'",
+    "format:check": "prettier --check 'src/**/*.js' 'tests/**/*.js' 'cli/**/*.js'",
+    "dev": "node --watch cli/main.js",
+    "cli": "node cli/main.js",
+    "example": "node examples/usage_examples.js"
+  },
+  "keywords": [
+    "encryption",
+    "decryption",
+    "cipher",
+    "cryptography",
+    "caesar-cipher",
+    "rot13",
+    "base64",
+    "vigenere",
+    "morse-code",
+    "braille",
+    "qr-code",
+    "password-hash"
+  ],
+  "author": "Vetri-78640",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "qrcode": "^1.5.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.8",
+    "eslint": "^8.54.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.1.1"
+  }
+}
