@@ -104,4 +104,10 @@ function analyze(text) {
   };
 }
 
-export { encode, decode, isRot13Symmetric, analyze, ROT13Error };
+export {
+  encode,
+  decode,
+  isRot13Symmetric,
+  analyze,
+  ROT13Error,
+};
